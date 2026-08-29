@@ -1,0 +1,14 @@
+{
+  "components": {
+    "archmap": {
+      "fan_in": 0,
+      "fan_out": 0,
+      "modules": 1
+    }
+  },
+  "cycles": [],
+  "edges": [],
+  "external": [],
+  "version": "2.0",
+  "violations": []
+}
