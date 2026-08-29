@@ -1,0 +1,5 @@
+{
+  "component_depth": 1,
+  "exclude": ["tests", "__pycache__", ".git"],
+  "suppress": ["ARCH-NOTESTS"]
+}

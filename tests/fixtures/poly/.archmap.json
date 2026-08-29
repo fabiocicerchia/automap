@@ -1,0 +1,33 @@
+{
+  "component_depth": 1,
+  "source_roots": [
+    "java/src/main/java",
+    "cs/src",
+    "rust/src",
+    "php/src",
+    "rb/lib",
+    "cpp",
+    "py",
+    "src"
+  ],
+  "layers": {
+    "interface": [
+      "web",
+      "api",
+      "Acme",
+      "Http"
+    ],
+    "core": [
+      "domain",
+      "com",
+      "Domain",
+      "engine",
+      "Billing"
+    ],
+    "infrastructure": [
+      "store",
+      "internal",
+      "lib"
+    ]
+  }
+}

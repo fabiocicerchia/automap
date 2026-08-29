@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+tests/**/ARCHITECTURE.md
+tests/**/.archmap.baseline.json
+tests/**/docs/adr/DRAFT-*.md
