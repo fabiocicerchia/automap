@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Run tests
-        run: python3 tests/test_archmap.py
+        run: python3 tests/test_automap.py
 
   architecture:
     runs-on: ubuntu-latest
@@ -32,9 +32,9 @@ jobs:
           python-version: "3.12"
       - name: Fail on architecture drift
         run: |
-          if [ -f .archmap.baseline.json ]; then
-            python3 archmap.py check .
+          if [ -f .automap.baseline.json ]; then
+            python3 automap.py check .
           else
             echo "no baseline committed yet; generating one"
-            python3 archmap.py map .
+            python3 automap.py map .
           fi

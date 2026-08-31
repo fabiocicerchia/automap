@@ -1,4 +1,4 @@
-# archmap
+# automap
 
 Derives architecture documentation from a codebase. No model, no network, no
 generation.
@@ -10,13 +10,13 @@ why a boundary was drawn, what was rejected — it emits a blank and says so.
 Single file, Python 3.8+, standard library only. Nothing to install.
 
 ```bash
-python3 archmap.py map .      # ARCHITECTURE.md + diagrams + baseline
-python3 archmap.py check .    # exit 1 when the architecture drifts
-python3 archmap.py adr .      # ADR scaffolds, facts filled, rationale blank
-python3 archmap.py types .    # class diagrams
-python3 archmap.py journeys . # entry points and navigation
-python3 archmap.py rules      # the full rule catalog, nothing measured
-python3 archmap.py langs      # supported languages and their fidelity
+python3 automap.py map .      # ARCHITECTURE.md + diagrams + baseline
+python3 automap.py check .    # exit 1 when the architecture drifts
+python3 automap.py adr .      # ADR scaffolds, facts filled, rationale blank
+python3 automap.py types .    # class diagrams
+python3 automap.py journeys . # entry points and navigation
+python3 automap.py rules      # the full rule catalog, nothing measured
+python3 automap.py langs      # supported languages and their fidelity
 ```
 
 ## Why it does not call a model
@@ -73,7 +73,7 @@ and what each entry point can reach through imports.
 
 ## Configuration
 
-`.archmap.json` at the repository root:
+`.automap.json` at the repository root:
 
 ```json
 {
@@ -96,8 +96,8 @@ points the wrong way.
 
 ## Drift detection
 
-`archmap map` writes a baseline JSON alongside the document. Commit it.
-`archmap check` recomputes and exits 1 on any new coupling, cycle, or layer
+`automap map` writes a baseline JSON alongside the document. Commit it.
+`automap check` recomputes and exits 1 on any new coupling, cycle, or layer
 violation:
 
 ```
@@ -110,7 +110,7 @@ months later; making drift a build failure is what keeps the map true.
 
 ## What it deliberately will not do
 
-- **Explain why.** Rationale is not recoverable from code. `archmap adr` fills
+- **Explain why.** Rationale is not recoverable from code. `automap adr` fills
   in the observed state and the commit that introduced each edge, then leaves
   Decision and Alternatives blank.
 - **Draw sequence diagrams or a call graph.** Both need call ordering or type
@@ -133,7 +133,7 @@ months later; making drift a build failure is what keeps the map true.
 ## Tests
 
 ```bash
-python3 tests/test_archmap.py
+python3 tests/test_automap.py
 ```
 
 38 tests over four fixture repositories. Each fixture contains specific defects

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Regression tests for archmap.
+Regression tests for automap.
 
 Each test pins a behaviour that was wrong at some point during development.
 The fixtures are small repositories under tests/fixtures, each built to
 contain a specific defect so that a rule firing on it is a true positive.
 
-Run with: python3 tests/test_archmap.py
+Run with: python3 tests/test_automap.py
 No pytest required — the point is that this works anywhere python does.
 """
 
@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-import archmap as A  # noqa: E402
+import automap as A  # noqa: E402
 
 FIX = ROOT / "tests" / "fixtures"
 
@@ -258,10 +258,10 @@ class Journeys(unittest.TestCase):
 
 
 class SelfCheck(unittest.TestCase):
-    def test_archmap_maps_itself(self):
+    def test_automap_maps_itself(self):
         R = A.build(ROOT, A.load_config(ROOT))
         self.assertGreaterEqual(len(R["modules"]), 1)
-        self.assertEqual(R["cycles"], [], "archmap should have no cycles")
+        self.assertEqual(R["cycles"], [], "automap should have no cycles")
 
 
 if __name__ == "__main__":

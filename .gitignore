@@ -4,5 +4,5 @@ __pycache__/
 venv/
 .DS_Store
 tests/**/ARCHITECTURE.md
-tests/**/.archmap.baseline.json
+tests/**/.automap.baseline.json
 tests/**/docs/adr/DRAFT-*.md

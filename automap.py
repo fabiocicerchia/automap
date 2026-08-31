@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-archmap 2.0 — derive architecture artefacts from a polyglot codebase.
+automap 2.0 — derive architecture artefacts from a polyglot codebase.
 
 No model, no network, no generation. Every statement in the output is computed
 from the source tree or from git, and carries a file:line or a commit hash.
@@ -1231,7 +1231,7 @@ OVERLAP_GROUPS = {
 #   run; only the numbers and the evidence change.
 #
 #   Thresholds are in DEFAULTS["thresholds"] and can be overridden in
-#   .archmap.json. Rules can be turned off with "suppress": ["ARCH-ORPHAN"].
+#   .automap.json. Rules can be turned off with "suppress": ["ARCH-ORPHAN"].
 #
 #   What no rule attempts is why your team built it this way. That stays
 #   blank, in the ADR scaffolds, on purpose.
@@ -1349,7 +1349,7 @@ def evaluate(R, churn_map, root=None):
                "Usually a source root, path alias, or monorepo package boundary "
                "that has not been declared. Occasionally generated code, or "
                "imports assembled at runtime from strings.",
-               "Add the missing `source_roots` or `aliases` to `.archmap.json` and "
+               "Add the missing `source_roots` or `aliases` to `.automap.json` and "
                "rerun until this is zero, or publish the graph as a lower bound "
                "and say so where it is published.",
                [f"{k}: {v['unknown']} unaccounted" for k, v in sorted(R["stats"].items())
@@ -1382,7 +1382,7 @@ def evaluate(R, churn_map, root=None):
                "turns a description into a check that can fail in CI.",
                "Most repositories never write the layering down; it lives in "
                "review comments and in whoever has been there longest.",
-               "Add a `layers` map to `.archmap.json`, ordered top to bottom. "
+               "Add a `layers` map to `.automap.json`, ordered top to bottom. "
                "Start with the layering you believe you have — the first run will "
                "tell you whether you have it.", []))
 
@@ -1578,7 +1578,7 @@ def evaluate(R, churn_map, root=None):
                "was defined upward because that is where it was first needed.",
                "Move the shared definition down, or invert the call behind an "
                "interface the lower layer owns. If neither is right, the layering "
-               "itself is wrong and `.archmap.json` should change — an accurate "
+               "itself is wrong and `.automap.json` should change — an accurate "
                "declaration beats an aspirational one.",
                [f"`{v['from']}` ({v['from_layer']}) → `{v['to']}` ({v['to_layer']}) "
                 f"— {v['sites'][0]}" for v in R["violations"][:6]]))
@@ -1838,7 +1838,7 @@ def evaluate(R, churn_map, root=None):
                    "component structure says very little about most of your code.",
                    "A core that grew while peripheral concerns were split out "
                    "around it, or a monolith with a few extracted services.",
-                   "Increase `component_depth` in `.archmap.json` and rerun. If the "
+                   "Increase `component_depth` in `.automap.json` and rerun. If the "
                    "sub-structure looks meaningful, that is the level your "
                    "architecture actually lives at; if it looks arbitrary, that is "
                    "the finding.",
@@ -2007,7 +2007,7 @@ def evaluate(R, churn_map, root=None):
                "Tests kept in a separate repository, or named in a way this tool "
                "does not recognise.",
                "If they exist elsewhere, add their directory to `roots` or their "
-               "naming to `test_dirs` in `.archmap.json` so this check means "
+               "naming to `test_dirs` in `.automap.json` so this check means "
                "something.", []))
 
     F.sort(key=lambda f: (SEV_ORDER[f.severity], CATEGORIES.index(f.category), f.rule))
@@ -2020,9 +2020,9 @@ def render_findings(F, full=False):
     w("Each item fired because a measurement crossed a threshold. The numbers and "
       "the evidence are from your code; the explanation is fixed text from a rule "
       "catalog, identical every time that rule fires on any repository. "
-      "`archmap rules` prints the catalog on its own so you can audit the claims "
+      "`automap rules` prints the catalog on its own so you can audit the claims "
       "before trusting them here. What none of it can tell you is why your team "
-      "built it this way — that is what `archmap adr` leaves blank.\n")
+      "built it this way — that is what `automap adr` leaves blank.\n")
     if not F:
         w("No rule fired. That is a real result rather than an empty section: no "
           "cycles, no upward dependencies, no hubs or hidden coupling above "
@@ -3428,8 +3428,8 @@ def render_md(root, R, churn_map, full=False, code_F=None, code_stats=None,
     cfg, mods = R["cfg"], R["modules"]
     L = []; w = L.append
     w("# Architecture map\n")
-    w(f"Derived from source by archmap {VERSION}. Every line is computed, not written. "
-      "Regenerate with `archmap map`; do not edit by hand.\n")
+    w(f"Derived from source by automap {VERSION}. Every line is computed, not written. "
+      "Regenerate with `automap map`; do not edit by hand.\n")
 
     F, propcost = evaluate(R, churn_map, root)
     w(render_findings(F, full))
@@ -3650,7 +3650,7 @@ def render_md(root, R, churn_map, full=False, code_F=None, code_stats=None,
 
     w("---\n")
     w("**Not derivable from code.** Why these boundaries were chosen, what was "
-      "rejected, and what constraint each one holds. `archmap adr` scaffolds one "
+      "rejected, and what constraint each one holds. `automap adr` scaffolds one "
       "file per decision point with the facts filled in and those questions blank.\n")
     return "\n".join(L)
 
@@ -3661,7 +3661,7 @@ def render_md(root, R, churn_map, full=False, code_F=None, code_stats=None,
 
 ADR_TMPL = """# {title}
 
-<!-- Scaffolded by archmap {version}. Facts below are derived from the tree and
+<!-- Scaffolded by automap {version}. Facts below are derived from the tree and
      from git. The blanks are blank because no tool recovers intent from code. -->
 
 ## Status
@@ -3724,7 +3724,7 @@ def adrs(root, out, R, blame):
               [f"- `{v['from']}` sits in **{v['from_layer']}** and imports `{v['to']}` "
                f"in **{v['to_layer']}**.",
                "- Sites: " + ", ".join(f"`{s}`" for s in v["sites"])],
-              ["- The layering declared in `.archmap.json` no longer describes the code.",
+              ["- The layering declared in `.automap.json` no longer describes the code.",
                "- Either the dependency is wrong, or the declared layering is."])
 
     seams = defaultdict(list)
@@ -3779,7 +3779,7 @@ def diff_baseline(old, new):
 
 def load_config(root: Path) -> dict:
     cfg = json.loads(json.dumps(DEFAULTS))
-    f = root / ".archmap.json"
+    f = root / ".automap.json"
     if f.exists():
         user = json.loads(strip_jsonc(f.read_text()))
         cfg.update({k: v for k, v in user.items() if k in DEFAULTS})
@@ -3787,14 +3787,14 @@ def load_config(root: Path) -> dict:
 
 
 def main():
-    ap = argparse.ArgumentParser(prog="archmap", description=__doc__,
+    ap = argparse.ArgumentParser(prog="automap", description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("command", choices=["map", "check", "adr", "langs", "rules", "types",
                                         "journeys"])
     ap.add_argument("root", nargs="?", default=".")
     ap.add_argument("-o", "--out", default="ARCHITECTURE.md")
     ap.add_argument("--adr-dir", default="docs/adr")
-    ap.add_argument("--baseline", default=".archmap.baseline.json")
+    ap.add_argument("--baseline", default=".automap.baseline.json")
     ap.add_argument("--blame", action="store_true",
                     help="ask git which commit introduced each edge (slower)")
     ap.add_argument("--no-git", action="store_true")
@@ -3811,12 +3811,12 @@ def main():
 
     if a.command == "rules":
         import textwrap
-        print(f"archmap {VERSION} rule catalog\n")
+        print(f"automap {VERSION} rule catalog\n")
         print(textwrap.fill(
             "Each rule fires on a measurement over your code. The explanation it "
             "prints is fixed text, identical on every repository; only the numbers "
             "and the evidence differ. No rule attempts to explain intent. Tune "
-            "with \"thresholds\" in .archmap.json, or turn one off with "
+            "with \"thresholds\" in .automap.json, or turn one off with "
             "\"suppress\": [\"ARCH-ORPHAN\"].", 78))
         by_cat = defaultdict(list)
         for rid, cat, one in RULE_INDEX:
@@ -3848,7 +3848,7 @@ def main():
         return 0
 
     if a.command == "langs":
-        print(f"archmap {VERSION}\n")
+        print(f"automap {VERSION}\n")
         for l in sorted(LANGS, key=lambda x: (x.fidelity, x.name)):
             print(f"  {l.name:<12} {l.fidelity:<11} {' '.join(l.exts)}")
         print("\n  parsed      real grammar; edges are facts")
@@ -3887,7 +3887,7 @@ def main():
     if a.command == "check":
         bp = root / a.baseline
         if not bp.exists():
-            print(f"no baseline at {a.baseline}; run `archmap map` and commit it", file=sys.stderr)
+            print(f"no baseline at {a.baseline}; run `automap map` and commit it", file=sys.stderr)
             return 2
         findings = diff_baseline(json.loads(bp.read_text()), base)
         if not findings:
@@ -3897,7 +3897,7 @@ def main():
             print(f"{'+' if kind == 'new' else '-'} {label}: {what}")
         new = [f for f in findings if f[0] == "new"]
         print(f"\n{len(new)} new, {len(findings)-len(new)} removed. If intended, run "
-              f"`archmap map` and commit the baseline.", file=sys.stderr)
+              f"`automap map` and commit the baseline.", file=sys.stderr)
         return 1 if new else 0
 
     if a.command == "journeys":

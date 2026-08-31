@@ -1,6 +1,6 @@
 {
   "components": {
-    "archmap": {
+    "automap": {
       "fan_in": 0,
       "fan_out": 0,
       "modules": 1

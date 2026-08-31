@@ -1,10 +1,10 @@
 # Architecture map
 
-Derived from source by archmap 2.0. Every line is computed, not written. Regenerate with `archmap map`; do not edit by hand.
+Derived from source by automap 2.0. Every line is computed, not written. Regenerate with `automap map`; do not edit by hand.
 
 ## What this says about the system
 
-Each item fired because a measurement crossed a threshold. The numbers and the evidence are from your code; the explanation is fixed text from a rule catalog, identical every time that rule fires on any repository. `archmap rules` prints the catalog on its own so you can audit the claims before trusting them here. What none of it can tell you is why your team built it this way — that is what `archmap adr` leaves blank.
+Each item fired because a measurement crossed a threshold. The numbers and the evidence are from your code; the explanation is fixed text from a rule catalog, identical every time that rule fires on any repository. `automap rules` prints the catalog on its own so you can audit the claims before trusting them here. What none of it can tell you is why your team built it this way — that is what `automap adr` leaves blank.
 
 | | count |
 |---|---:|
@@ -16,7 +16,7 @@ Each item fired because a measurement crossed a threshold. The numbers and the e
 
 **What usually causes it.** Most repositories never write the layering down; it lives in review comments and in whoever has been there longest.
 
-**What to do.** Add a `layers` map to `.archmap.json`, ordered top to bottom. Start with the layering you believe you have — the first run will tell you whether you have it.
+**What to do.** Add a `layers` map to `.automap.json`, ordered top to bottom. Start with the layering you believe you have — the first run will tell you whether you have it.
 
 <sub>`ARCH-NOLAYERS` · Evidence quality</sub>
 
@@ -44,7 +44,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:2120` — `ObjectInputStream`
+- `automap.py:2120` — `ObjectInputStream`
 
 </details>
 
@@ -58,7 +58,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:2286` — `SELECT\s+\*\s+FROM`
+- `automap.py:2286` — `SELECT\s+\*\s+FROM`
 
 </details>
 
@@ -72,7 +72,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:2160` — `NODE_TLS_REJECT_UNAUTHORIZED`
+- `automap.py:2160` — `NODE_TLS_REJECT_UNAUTHORIZED`
 
 </details>
 
@@ -86,8 +86,8 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:2146` — `AES/ECB`
-- `archmap.py:2147` — `DES`
+- `automap.py:2146` — `AES/ECB`
+- `automap.py:2147` — `DES`
 
 </details>
 
@@ -103,7 +103,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:200` — `4 levels of loop nesting`
+- `automap.py:200` — `4 levels of loop nesting`
 
 </details>
 
@@ -119,7 +119,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:2013` — `.index(`
+- `automap.py:2013` — `.index(`
 
 </details>
 
@@ -133,12 +133,12 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:345` — `sorted(`
-- `archmap.py:351` — `sorted(`
-- `archmap.py:549` — `sorted(`
-- `archmap.py:620` — `sorted(`
-- `archmap.py:635` — `sorted(`
-- `archmap.py:646` — `sorted(`
+- `automap.py:345` — `sorted(`
+- `automap.py:351` — `sorted(`
+- `automap.py:549` — `sorted(`
+- `automap.py:620` — `sorted(`
+- `automap.py:635` — `sorted(`
+- `automap.py:646` — `sorted(`
 
 </details>
 
@@ -154,8 +154,8 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:288` — `except Exception:                 pass`
-- `archmap.py:299` — `except Exception:             pass`
+- `automap.py:288` — `except Exception:                 pass`
+- `automap.py:299` — `except Exception:             pass`
 
 </details>
 
@@ -169,14 +169,14 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:1320` — `evaluate` complexity 157, 695 lines, nesting 4
-- `archmap.py:3426` — `render_md` complexity 71, 230 lines, nesting 3
-- `archmap.py:3326` — `render_journeys` complexity 39, 98 lines, nesting 3
-- `archmap.py:397` — `scan_file` complexity 38, 80 lines, nesting 6
-- `archmap.py:2915` — `types_lexical` complexity 38, 83 lines, nesting 5
-- `archmap.py:3789` — `main` complexity 36, 133 lines, nesting 3
-- `archmap.py:2865` — `types_python` complexity 32, 48 lines, nesting 8
-- `archmap.py:3096` — `render_types` complexity 30, 65 lines, nesting 2
+- `automap.py:1320` — `evaluate` complexity 157, 695 lines, nesting 4
+- `automap.py:3426` — `render_md` complexity 71, 230 lines, nesting 3
+- `automap.py:3326` — `render_journeys` complexity 39, 98 lines, nesting 3
+- `automap.py:397` — `scan_file` complexity 38, 80 lines, nesting 6
+- `automap.py:2915` — `types_lexical` complexity 38, 83 lines, nesting 5
+- `automap.py:3789` — `main` complexity 36, 133 lines, nesting 3
+- `automap.py:2865` — `types_python` complexity 32, 48 lines, nesting 8
+- `automap.py:3096` — `render_types` complexity 30, 65 lines, nesting 2
 
 </details>
 
@@ -190,12 +190,12 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:2401` — `TODO`
-- `archmap.py:2402` — `TODO`
-- `archmap.py:2402` — `FIXME`
-- `archmap.py:2402` — `HACK`
-- `archmap.py:2402` — `XXX`
-- `archmap.py:2402` — `BUG`
+- `automap.py:2401` — `TODO`
+- `automap.py:2402` — `TODO`
+- `automap.py:2402` — `FIXME`
+- `automap.py:2402` — `HACK`
+- `automap.py:2402` — `XXX`
+- `automap.py:2402` — `BUG`
 
 </details>
 
@@ -209,12 +209,12 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:1320` — `evaluate`, 695 lines
-- `archmap.py:3426` — `render_md`, 230 lines
-- `archmap.py:3789` — `main`, 133 lines
-- `archmap.py:2592` — `code_findings`, 125 lines
-- `archmap.py:3326` — `render_journeys`, 98 lines
-- `archmap.py:669` — `build`, 87 lines
+- `automap.py:1320` — `evaluate`, 695 lines
+- `automap.py:3426` — `render_md`, 230 lines
+- `automap.py:3789` — `main`, 133 lines
+- `automap.py:2592` — `code_findings`, 125 lines
+- `automap.py:3326` — `render_journeys`, 98 lines
+- `automap.py:669` — `build`, 87 lines
 
 </details>
 
@@ -228,11 +228,11 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:1316` — `F_`, 8 parameters
-- `archmap.py:3426` — `render_md`, 8 parameters
-- `archmap.py:3096` — `render_types`, 7 parameters
-- `archmap.py:822` — `mermaid`, 6 parameters
-- `archmap.py:3038` — `class_diagram`, 6 parameters
+- `automap.py:1316` — `F_`, 8 parameters
+- `automap.py:3426` — `render_md`, 8 parameters
+- `automap.py:3096` — `render_types`, 7 parameters
+- `automap.py:822` — `mermaid`, 6 parameters
+- `automap.py:3038` — `class_diagram`, 6 parameters
 
 </details>
 
@@ -248,12 +248,12 @@ The section above reasons about the import graph, where an edge either exists or
 
 <details><summary>Evidence</summary>
 
-- `archmap.py:2865` — `types_python`, depth 8
-- `archmap.py:397` — `scan_file`, depth 6
-- `archmap.py:3693` — `adrs`, depth 6
-- `archmap.py:1160` — `abstractness`, depth 5
-- `archmap.py:2427` — `loop_spans`, depth 5
-- `archmap.py:2481` — `python_metrics`, depth 5
+- `automap.py:2865` — `types_python`, depth 8
+- `automap.py:397` — `scan_file`, depth 6
+- `automap.py:3693` — `adrs`, depth 6
+- `automap.py:1160` — `abstractness`, depth 5
+- `automap.py:2427` — `loop_spans`, depth 5
+- `automap.py:2481` — `python_metrics`, depth 5
 
 </details>
 
@@ -280,7 +280,7 @@ What was read, and where every import went. Third-party means the target is expe
 
 ```mermaid
 graph LR
-  archmap["archmap<br/><small>Python · 1 mod · 3925 loc</small>"]
+  automap["automap<br/><small>Python · 1 mod · 3925 loc</small>"]
 ```
 
 Dashed edges came from heuristic scanners. Thick borders are in a cycle. Labels count import sites.
@@ -293,7 +293,7 @@ No routes, commands, jobs, or navigation links were recognised. Either this tree
 
 10 types declared: 0 inheritance and 1 composition relationships between types defined in this tree. Relationships to types declared elsewhere are omitted rather than guessed, so this is a lower bound. 10 types were read with a real parser; the rest come from declaration syntax, which is reliable for the declaration and weaker for the member lists.
 
-### `archmap`
+### `automap`
 
 ```mermaid
 classDiagram
@@ -387,17 +387,17 @@ classDiagram
 
 What each root actually pulls in, to a depth of three. Nothing imports these modules, so they are where a reader has to start.
 
-**archmap.py**
+**automap.py**
 
 ```
-archmap  (Python)
+automap  (Python)
 ```
 
 ## Coupling
 
 | Component | Languages | Modules | LOC | Fan-in | Fan-out | Instability |
 |---|---|---:|---:|---:|---:|---:|
-| `archmap` | Python | 1 | 3925 | 0 | 0 | 0.0 |
+| `automap` | Python | 1 | 3925 | 0 | 0 | 0.0 |
 
 Instability is fan-out / (fan-in + fan-out). A component many things depend on that itself depends widely propagates change in both directions.
 
@@ -417,17 +417,16 @@ Most-changed files in the last 12 months. This is where any map you carry in you
 
 | File | Lines touched | LOC | Language |
 |---|---:|---:|---|
-| `archmap.py` | 3925 | 3925 | Python |
 
 ## Public surface
 
-<details><summary><code>archmap</code> — 111 exported</summary>
+<details><summary><code>automap</code> — 111 exported</summary>
 
 
 _Showing 40 of 111; `--full` lists them all._
 
 
-`archmap`
+`automap`
 
 - class CodeRule:2076
 - class Edge:315
@@ -474,4 +473,4 @@ _Showing 40 of 111; `--full` lists them all._
 
 ---
 
-**Not derivable from code.** Why these boundaries were chosen, what was rejected, and what constraint each one holds. `archmap adr` scaffolds one file per decision point with the facts filled in and those questions blank.
+**Not derivable from code.** Why these boundaries were chosen, what was rejected, and what constraint each one holds. `automap adr` scaffolds one file per decision point with the facts filled in and those questions blank.
