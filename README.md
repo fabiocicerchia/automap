@@ -7,7 +7,7 @@ Every statement it produces is computed from the source tree or from git and
 carries a `file:line` or a commit hash. Where only a human knows the answer —
 why a boundary was drawn, what was rejected — it emits a blank and says so.
 
-Single file, Python 3.8+, standard library only. Nothing to install.
+Single file, Python 3.10+, standard library only. Nothing to install.
 
 ```bash
 python3 automap.py map .      # ARCHITECTURE.md + diagrams + baseline
