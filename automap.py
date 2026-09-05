@@ -26,7 +26,7 @@ Commands
 """
 
 from __future__ import annotations
-import argparse, ast, json, os, re, subprocess, sys
+import argparse, ast, json, os, re, subprocess, sys, unicodedata
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -2043,7 +2043,7 @@ def render_findings(F, full=False):
     label = {"high": "Serious", "medium": "Worth attention", "low": "Minor", "info": "Note"}
     shown = F if full else F[:12]
     for f in shown:
-        w(f"### {label[f.severity]} · {f.headline}\n")
+        w(f"### {label[f.severity]} · {f.headline.rstrip('.')}\n")
         w(f"**Why it matters.** {f.why}\n")
         w(f"**What usually causes it.** {f.cause}\n")
         w(f"**What to do.** {f.action}\n")
@@ -3423,6 +3423,58 @@ def render_journeys(entries, nav, R, full=False):
     return "\n".join(L)
 
 
+# --- Markdown normalisation ---
+
+_DELIM_CELL = re.compile(r"^:?-+:?$")
+
+
+def _cell_width(text):
+    """Display columns, not code points: emoji and CJK occupy two."""
+    return sum(2 if unicodedata.east_asian_width(c) in ("W", "F") else 1 for c in text)
+
+
+def _split_row(line):
+    body = line.strip().strip("|")
+    return [c.strip() for c in re.split(r"(?<!\\)\|", body)]
+
+
+def normalise_md(text):
+    """Align table pipes and collapse blank runs.
+
+    The tables are assembled by hand all over this file, so aligning them at
+    each call site would mean touching every one. Doing it here keeps the
+    emitters simple and the output lint-clean (MD060, MD012).
+    """
+    lines, out, i = text.split("\n"), [], 0
+    while i < len(lines):
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        cells = _split_row(nxt) if "|" in nxt else []
+        if "|" in lines[i] and cells and all(_DELIM_CELL.match(c) for c in cells):
+            block = []
+            while i < len(lines) and "|" in lines[i] and lines[i].strip():
+                block.append(_split_row(lines[i]))
+                i += 1
+            n = len(block[1])
+            block = [r[:n] + [""] * (n - len(r)) for r in block]
+            w = [max(3, max(_cell_width(r[c]) for k, r in enumerate(block) if k != 1))
+                 for c in range(n)]
+            for k, row in enumerate(block):
+                if k == 1:
+                    cs = []
+                    for c, d in enumerate(block[1]):
+                        lft, rgt = d.startswith(":"), d.endswith(":")
+                        bar = "-" * max(1, w[c] - int(lft) - int(rgt))
+                        cs.append((":" if lft else "") + bar + (":" if rgt else ""))
+                    out.append("| " + " | ".join(cs) + " |")
+                else:
+                    out.append("| " + " | ".join(
+                        v + " " * (w[c] - _cell_width(v)) for c, v in enumerate(row)) + " |")
+            continue
+        out.append(lines[i])
+        i += 1
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(out))
+
+
 def render_md(root, R, churn_map, full=False, code_F=None, code_stats=None,
               types_data=None, journeys=None):
     cfg, mods = R["cfg"], R["modules"]
@@ -3526,8 +3578,8 @@ def render_md(root, R, churn_map, full=False, code_F=None, code_stats=None,
         w("What each root actually pulls in, to a depth of three. Nothing imports "
           "these modules, so they are where a reader has to start.\n")
         for m in eps[: (len(eps) if full else 3)]:
-            w(f"**{m.path}**\n")
-            w("```")
+            w(f"### `{m.path}`\n")
+            w("```text")
             w(import_tree(m.name, R["modules"], R["edges"]))
             w("```\n")
 
@@ -3635,7 +3687,7 @@ def render_md(root, R, churn_map, full=False, code_F=None, code_stats=None,
         cur = None
         cut = len(pub) if full else MAX_SURFACE
         if len(pub) > cut:
-            w(f"\n_Showing {cut} of {len(pub)}; `--full` lists them all._\n")
+            w(f"\n*Showing {cut} of {len(pub)}; `--full` lists them all.*\n")
         for mn, p in pub[:cut]:
             if mn != cur:
                 w(f"\n`{mn}`\n"); cur = mn
@@ -3874,8 +3926,8 @@ def main():
             d_ = extract_types(root, R["modules"])
             types_data = (d_,) + type_relations(d_)
         journeys = None if a.no_journeys else extract_entries(root, R["modules"])
-        (root / a.out).write_text(render_md(root, R, ch, a.full, code_F, code_stats,
-                                            types_data, journeys))
+        (root / a.out).write_text(normalise_md(render_md(
+            root, R, ch, a.full, code_F, code_stats, types_data, journeys)))
         (root / a.baseline).write_text(json.dumps(base, indent=2, sort_keys=True) + "\n")
         print(f"wrote {a.out} and {a.baseline}")
         print(f"  {len(R['modules'])} modules, {len(R['comp_mods'])} components, "
