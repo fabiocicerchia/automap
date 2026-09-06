@@ -40,9 +40,8 @@ build: ## Not applicable — nothing is compiled
 	@echo "Nothing to build: one pure-Python script."
 	@echo "See README > Not applicable."
 
-lint: ## Not applicable — no gate is configured here
-	@echo "No linter in this repo: there is no .pre-commit-config.yaml and no"
-	@echo "ruff config, so nothing would run. See README > Not applicable."
+lint: ## Run the whole gate — every hook, every file
+	pre-commit run --all-files
 
 format: ## Not applicable — no formatter is configured here
 	@echo "No formatter in this repo: nothing rewrites automap.py."

@@ -162,7 +162,6 @@ They exit 0 and say why rather than pretending to work (FC-GEN-058):
 - `setup` — nothing to install, and no pre-commit config to hook.
 - `install` — run it from the checkout.
 - `build` — pure Python, nothing to compile.
-- `lint` — no `.pre-commit-config.yaml` and no ruff config in this repo.
 - `format` — nothing rewrites `automap.py`.
 
 ## License
