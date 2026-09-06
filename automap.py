@@ -26,7 +26,7 @@ Commands
 """
 
 from __future__ import annotations
-import argparse, ast, json, os, re, subprocess, sys
+import argparse, ast, json, os, re, subprocess, sys, sysconfig
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -1003,13 +1003,27 @@ RUBY_STDLIB = {
 }
 
 
+def _python_stdlib(head: str) -> bool:
+    """Is `head` a Python standard-library top-level module?
+
+    `sys.stdlib_module_names` is 3.10+. On 3.9 the old code answered False for
+    everything, which quietly filed `sys` and `json` as third-party
+    dependencies — the opposite of what this function is for. The fallback
+    asks the interpreter where its standard library lives and looks.
+    """
+    names = getattr(sys, "stdlib_module_names", None)
+    if names is not None:
+        return head in names or head.startswith("_")
+    if head in sys.builtin_module_names or head.startswith("_"):
+        return True
+    stdlib = Path(sysconfig.get_paths()["stdlib"])
+    return (stdlib / f"{head}.py").exists() or (stdlib / head / "__init__.py").exists()
+
+
 def is_stdlib(pkg: str, lang_name: str) -> bool:
     head = re.split(r'[./\\:]', pkg)[0]
     if lang_name == "Python":
-        try:
-            return head in sys.stdlib_module_names or head.startswith("_")
-        except AttributeError:
-            return False
+        return _python_stdlib(head)
     if lang_name == "Go":
         # split on "/" only: the domain test needs the whole first segment,
         # and splitting on "." first turns github.com into "github"
