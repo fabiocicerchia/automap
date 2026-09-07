@@ -6,11 +6,11 @@ Derived from source by automap 2.0. Every line is computed, not written. Regener
 
 Each item fired because a measurement crossed a threshold. The numbers and the evidence are from your code; the explanation is fixed text from a rule catalog, identical every time that rule fires on any repository. `automap rules` prints the catalog on its own so you can audit the claims before trusting them here. What none of it can tell you is why your team built it this way — that is what `automap adr` leaves blank.
 
-| | count |
-|---|---:|
-| Notes | 1 |
+|       | count |
+| ----- | ----: |
+| Notes | 2     |
 
-### Note · No layering declared, so layer checks are off.
+### Note · No layering declared, so layer checks are off
 
 **Why it matters.** Cycles and coupling are measurable without knowing your intent, but 'this dependency should not exist' is not. Declaring layers is how you tell the tool what the design is supposed to be, which turns a description into a check that can fail in CI.
 
@@ -20,17 +20,27 @@ Each item fired because a measurement crossed a threshold. The numbers and the e
 
 <sub>`ARCH-NOLAYERS` · Evidence quality</sub>
 
+### Note · No usable git history, so every change-over-time rule is off
+
+**Why it matters.** Structure alone cannot tell you which coupling actually hurts. Coupling to something that never changes is nearly free; coupling to something edited weekly is not. History is what separates them.
+
+**What usually causes it.** Run outside a repository, a shallow clone, or history not fetched.
+
+**What to do.** Run inside a full clone. A shallow clone will silently produce weaker findings rather than an error.
+
+<sub>`ARCH-NOVCS` · Evidence quality</sub>
+
 ## Inside the files
 
 The section above reasons about the import graph, where an edge either exists or does not. This one reads inside files, and its evidence is weaker by construction. Python is analysed with its real grammar, so complexity, nesting, length and parameter counts are exact. Every other language is matched lexically against comment-stripped source: those rules report **the presence of a construct, not a proven defect**. There is no dataflow analysis here. A flagged line may be perfectly correct in context, and an unflagged file may still be wrong. Read these as places to look, not as a verdict.
 
-| category | findings |
-|---|---:|
-| Security | 4 |
-| Performance | 1 |
-| Algorithms and data structures | 2 |
-| Maintainability | 5 |
-| Readability | 1 |
+| category                       | findings |
+| ------------------------------ | -------: |
+| Security                       | 4        |
+| Performance                    | 1        |
+| Algorithms and data structures | 2        |
+| Maintainability                | 5        |
+| Readability                    | 1        |
 
 ### Security
 
@@ -159,7 +169,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 </details>
 
-**Worth attention · MNT-COMPLEX** — 27 of 80 Python functions (34%) have a cyclomatic complexity of 12 or more; the highest is 157.
+**Worth attention · MNT-COMPLEX** — 28 of 83 Python functions (34%) have a cyclomatic complexity of 12 or more; the highest is 157.
 
 *Why it matters.* Complexity counts the independent paths through a function, which is also the number of test cases needed to cover it and the number of cases a reader must hold at once. Past about ten, reviewers stop simulating the function and start trusting it, which is where defects survive review.
 
@@ -170,11 +180,11 @@ The section above reasons about the import graph, where an edge either exists or
 <details><summary>Evidence</summary>
 
 - `automap.py:1320` — `evaluate` complexity 157, 695 lines, nesting 4
-- `automap.py:3426` — `render_md` complexity 71, 230 lines, nesting 3
+- `automap.py:3478` — `render_md` complexity 71, 230 lines, nesting 3
 - `automap.py:3326` — `render_journeys` complexity 39, 98 lines, nesting 3
 - `automap.py:397` — `scan_file` complexity 38, 80 lines, nesting 6
 - `automap.py:2915` — `types_lexical` complexity 38, 83 lines, nesting 5
-- `automap.py:3789` — `main` complexity 36, 133 lines, nesting 3
+- `automap.py:3841` — `main` complexity 36, 133 lines, nesting 3
 - `automap.py:2865` — `types_python` complexity 32, 48 lines, nesting 8
 - `automap.py:3096` — `render_types` complexity 30, 65 lines, nesting 2
 
@@ -199,7 +209,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 </details>
 
-**Minor · MNT-LONGFUNC** — 8 of 80 Python functions (10%) are 80 lines or longer; the longest is 695.
+**Minor · MNT-LONGFUNC** — 8 of 83 Python functions (10%) are 80 lines or longer; the longest is 695.
 
 *Why it matters.* Length is a proxy for how much has to be understood before any part can be changed. A function that does not fit on a screen cannot be checked against its own beginning, and long functions accumulate local variables whose lifetimes overlap in ways nothing enforces.
 
@@ -210,15 +220,15 @@ The section above reasons about the import graph, where an edge either exists or
 <details><summary>Evidence</summary>
 
 - `automap.py:1320` — `evaluate`, 695 lines
-- `automap.py:3426` — `render_md`, 230 lines
-- `automap.py:3789` — `main`, 133 lines
+- `automap.py:3478` — `render_md`, 230 lines
+- `automap.py:3841` — `main`, 133 lines
 - `automap.py:2592` — `code_findings`, 125 lines
 - `automap.py:3326` — `render_journeys`, 98 lines
 - `automap.py:669` — `build`, 87 lines
 
 </details>
 
-**Minor · MNT-PARAMS** — 5 of 80 Python functions (6%) take 6 or more parameters; the largest takes 8.
+**Minor · MNT-PARAMS** — 5 of 83 Python functions (6%) take 6 or more parameters; the largest takes 8.
 
 *Why it matters.* A long parameter list is usually several values that travel together and have no name. Callers must remember an order, positional mistakes between same-typed parameters type-check silently, and every new requirement adds another.
 
@@ -229,7 +239,7 @@ The section above reasons about the import graph, where an edge either exists or
 <details><summary>Evidence</summary>
 
 - `automap.py:1316` — `F_`, 8 parameters
-- `automap.py:3426` — `render_md`, 8 parameters
+- `automap.py:3478` — `render_md`, 8 parameters
 - `automap.py:3096` — `render_types`, 7 parameters
 - `automap.py:822` — `mermaid`, 6 parameters
 - `automap.py:3038` — `class_diagram`, 6 parameters
@@ -238,7 +248,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 ### Readability
 
-**Worth attention · RDB-NESTING** — 19 of 80 Python functions (24%) nest control flow 4 levels or deeper.
+**Worth attention · RDB-NESTING** — 20 of 83 Python functions (24%) nest control flow 4 levels or deeper.
 
 *Why it matters.* Each level of nesting is a condition the reader must keep true in their head for everything inside it. Depth compounds: at four levels the reader is tracking four simultaneous invariants to understand one line. Nesting correlates with defects more strongly than length does.
 
@@ -250,7 +260,7 @@ The section above reasons about the import graph, where an edge either exists or
 
 - `automap.py:2865` — `types_python`, depth 8
 - `automap.py:397` — `scan_file`, depth 6
-- `automap.py:3693` — `adrs`, depth 6
+- `automap.py:3745` — `adrs`, depth 6
 - `automap.py:1160` — `abstractness`, depth 5
 - `automap.py:2427` — `loop_spans`, depth 5
 - `automap.py:2481` — `python_metrics`, depth 5
@@ -266,21 +276,21 @@ The rest of this document is the evidence those findings were computed from.
 What was read, and where every import went. Third-party means the target is expected to live outside this tree. Unaccounted means an import that looks local and resolved to nothing: those are edges missing from the graph below, usually a source root or path alias this tool has not been told about.
 
 | Language | Fidelity | Files | Imports | Internal | Third-party | Unaccounted |
-|---|---|---:|---:|---:|---:|---:|
-| Python | parsed | 1 | 13 | 0 | 13 | 0 |
+| -------- | -------- | ----: | ------: | -------: | ----------: | ----------: |
+| Python   | parsed   | 1     | 14      | 0        | 14          | 0           |
 
 ## Shape
 
 - 1 modules across 1 components
 - 0 internal import edges, 0 component couplings
-- 3925 lines
+- 3977 lines
 - propagation cost 0% — the share of other components an average component can reach through import paths
 
 ## Component graph
 
 ```mermaid
 graph LR
-  automap["automap<br/><small>Python · 1 mod · 3925 loc</small>"]
+  automap["automap<br/><small>Python · 1 mod · 3977 loc</small>"]
 ```
 
 Dashed edges came from heuristic scanners. Thick borders are in a cycle. Labels count import sites.
@@ -387,17 +397,17 @@ classDiagram
 
 What each root actually pulls in, to a depth of three. Nothing imports these modules, so they are where a reader has to start.
 
-**automap.py**
+### `automap.py`
 
-```
+```text
 automap  (Python)
 ```
 
 ## Coupling
 
-| Component | Languages | Modules | LOC | Fan-in | Fan-out | Instability |
-|---|---|---:|---:|---:|---:|---:|
-| `automap` | Python | 1 | 3925 | 0 | 0 | 0.0 |
+| Component | Languages | Modules | LOC  | Fan-in | Fan-out | Instability |
+| --------- | --------- | ------: | ---: | -----: | ------: | ----------: |
+| `automap` | Python    | 1       | 3977 | 0      | 0       | 0.0         |
 
 Instability is fan-out / (fan-in + fan-out). A component many things depend on that itself depends widely propagates change in both directions.
 
@@ -409,22 +419,13 @@ None at component level.
 
 No third-party packages resolved outside the tree.
 
-12 standard-library modules imported; most used: `dataclasses` (2), `__future__` (1), `argparse` (1), `ast` (1), `collections` (1), `json` (1), `os` (1), `pathlib` (1), `re` (1), `subprocess` (1), `sys` (1), `textwrap` (1).
-
-## Churn against size
-
-Most-changed files in the last 12 months. This is where any map you carry in your head goes stale first.
-
-| File | Lines touched | LOC | Language |
-|---|---:|---:|---|
+13 standard-library modules imported; most used: `dataclasses` (2), `__future__` (1), `argparse` (1), `ast` (1), `collections` (1), `json` (1), `os` (1), `pathlib` (1), `re` (1), `subprocess` (1), `sys` (1), `textwrap` (1).
 
 ## Public surface
 
-<details><summary><code>automap</code> — 111 exported</summary>
+<details><summary><code>automap</code> — 113 exported</summary>
 
-
-_Showing 40 of 111; `--full` lists them all._
-
+*Showing 40 of 113; `--full` lists them all.*
 
 `automap`
 
@@ -440,7 +441,7 @@ _Showing 40 of 111; `--full` lists them all._
 - class TypeDecl:2783
 - const ABSTRACTION_LANGS:1157
 - const ABSTRACT_KINDS:1153
-- const ADR_TMPL:3662
+- const ADR_TMPL:3714
 - const ALGO:2089
 - const BAD_SPEC:243
 - const BY_EXT:157
