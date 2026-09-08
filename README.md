@@ -32,11 +32,11 @@ the way a linter documents a rule. Only the numbers and the evidence change.
 
 ## What it reads
 
-| Fidelity | Languages | Meaning |
-|---|---|---|
-| parsed | Python | real grammar; edges and metrics are facts |
+| Fidelity   | Languages                                                        | Meaning                                                          |
+| ---------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| parsed     | Python                                                           | real grammar; edges and metrics are facts                        |
 | structural | Go, Java, Kotlin, C#, Rust, Scala, Swift, TypeScript, JavaScript | unambiguous import syntax, resolved through the project manifest |
-| heuristic | PHP, Ruby, C, C++ | convention matching; can be wrong, drawn dashed |
+| heuristic  | PHP, Ruby, C, C++                                                | convention matching; can be wrong, drawn dashed                  |
 
 Resolution reads `go.mod`, `tsconfig.json` paths, `composer.json` PSR-4 and
 `Cargo.toml`, because mapping `@/lib/db` or `github.com/acme/svc/store` back to
