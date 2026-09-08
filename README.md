@@ -7,7 +7,7 @@ Every statement it produces is computed from the source tree or from git and
 carries a `file:line` or a commit hash. Where only a human knows the answer —
 why a boundary was drawn, what was rejected — it emits a blank and says so.
 
-Single file, Python 3.8+, standard library only. Nothing to install.
+Single file, Python 3.10+, standard library only. Nothing to install.
 
 ```bash
 python3 automap.py map .      # ARCHITECTURE.md + diagrams + baseline
@@ -32,11 +32,11 @@ the way a linter documents a rule. Only the numbers and the evidence change.
 
 ## What it reads
 
-| Fidelity | Languages | Meaning |
-|---|---|---|
-| parsed | Python | real grammar; edges and metrics are facts |
+| Fidelity   | Languages                                                        | Meaning                                                          |
+| ---------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| parsed     | Python                                                           | real grammar; edges and metrics are facts                        |
 | structural | Go, Java, Kotlin, C#, Rust, Scala, Swift, TypeScript, JavaScript | unambiguous import syntax, resolved through the project manifest |
-| heuristic | PHP, Ruby, C, C++ | convention matching; can be wrong, drawn dashed |
+| heuristic  | PHP, Ruby, C, C++                                                | convention matching; can be wrong, drawn dashed                  |
 
 Resolution reads `go.mod`, `tsconfig.json` paths, `composer.json` PSR-4 and
 `Cargo.toml`, because mapping `@/lib/db` or `github.com/acme/svc/store` back to
@@ -141,6 +141,28 @@ on purpose, so a rule firing on it is a true positive. Most tests pin a bug that
 was real during development — an `import` keyword inside a string literal
 swallowing the next line, `.get()` on a dictionary counted as a database query,
 relative imports in a package `__init__` resolving to the parent.
+
+## Make targets
+
+`make help` lists them. Every repository in this estate exposes the same eight
+verbs, so you do not have to read a Makefile to find out how to run or test it
+(FC-GEN-057).
+
+| Verb      | What it does here                                            |
+| --------- | ------------------------------------------------------------ |
+| `run`     | `python3 automap.py $(ARGS)`, `ARGS="map ."` by default       |
+| `test`    | `python3 tests/test_automap.py`                               |
+| `analyze` | `automap check .` — fails when the architecture has drifted   |
+
+### Not applicable
+
+Five verbs have nothing to do in a repo that is one standard-library script.
+They exit 0 and say why rather than pretending to work (FC-GEN-058):
+
+- `setup` — nothing to install, and no pre-commit config to hook.
+- `install` — run it from the checkout.
+- `build` — pure Python, nothing to compile.
+- `format` — nothing rewrites `automap.py`.
 
 ## License
 
