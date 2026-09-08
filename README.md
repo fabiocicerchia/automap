@@ -142,6 +142,28 @@ was real during development — an `import` keyword inside a string literal
 swallowing the next line, `.get()` on a dictionary counted as a database query,
 relative imports in a package `__init__` resolving to the parent.
 
+## Make targets
+
+`make help` lists them. Every repository in this estate exposes the same eight
+verbs, so you do not have to read a Makefile to find out how to run or test it
+(FC-GEN-057).
+
+| Verb      | What it does here                                            |
+| --------- | ------------------------------------------------------------ |
+| `run`     | `python3 automap.py $(ARGS)`, `ARGS="map ."` by default       |
+| `test`    | `python3 tests/test_automap.py`                               |
+| `analyze` | `automap check .` — fails when the architecture has drifted   |
+
+### Not applicable
+
+Five verbs have nothing to do in a repo that is one standard-library script.
+They exit 0 and say why rather than pretending to work (FC-GEN-058):
+
+- `setup` — nothing to install, and no pre-commit config to hook.
+- `install` — run it from the checkout.
+- `build` — pure Python, nothing to compile.
+- `format` — nothing rewrites `automap.py`.
+
 ## License
 
 MIT.
