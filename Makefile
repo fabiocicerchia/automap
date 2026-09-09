@@ -32,9 +32,8 @@ setup: ## Not applicable — there is nothing to set up
 	@echo "has no pre-commit config to install a hook from."
 	@echo "See README > Not applicable."
 
-install: ## Not applicable — there is no package to install
-	@echo "Nothing to install: one script, run from the checkout as"
-	@echo "'python3 automap.py' or 'make run'. See README > Not applicable."
+install: ## Install the package (and its man page) with pip
+	pip install .
 
 build: ## Not applicable — nothing is compiled
 	@echo "Nothing to build: one pure-Python script."
