@@ -1,0 +1,6 @@
+# Local variable names, not prose:
+#   nd  — nesting depth, in depth()
+#   ded — the deduplicated field list, in the dataclass pass
+[default.extend-words]
+nd = "nd"
+ded = "ded"
