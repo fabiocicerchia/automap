@@ -1,0 +1,112 @@
+.TH AUTOMAP 1 "2026-09" "automap" "User Commands"
+.SH NAME
+automap \- generate an architecture map from a source tree
+.SH SYNOPSIS
+.B automap
+.I command
+.RI [ root ]
+.RI [ options ]
+.SH DESCRIPTION
+Reads a source tree and writes an architecture document from it: the module
+graph, its components and cycles, layering violations, entry points, types
+and the ADRs that explain them.
+.PP
+Every fact it prints comes from the source tree or from git, and carries a
+.IR file:line
+or a commit hash \(em so the document can be checked against the code rather
+than believed.
+.PP
+The default root is the current directory.
+.SH COMMANDS
+.TP
+.B map
+Write the architecture document (the default use).
+.TP
+.B check
+Compare the tree against the recorded baseline and report drift.
+.TP
+.B adr
+Collect the architecture decision records.
+.TP
+.B langs
+Report the languages found, and how they were detected.
+.TP
+.B rules
+Print the layering rules in force.
+.TP
+.B types
+Extract types and class diagrams.
+.TP
+.B journeys
+Extract entry points and navigation paths.
+.SH OPTIONS
+.TP
+.BI \-o " FILE" ", " \-\-out " FILE"
+Where the document is written (default
+.IR ARCHITECTURE.md ).
+.TP
+.BI \-\-adr\-dir " DIR"
+Where the decision records live (default
+.IR docs/adr ).
+.TP
+.BI \-\-baseline " FILE"
+Baseline used by
+.B check
+(default
+.IR .automap.baseline.json ).
+.TP
+.B \-\-blame
+Ask git which commit introduced each edge. Slower.
+.TP
+.B \-\-no\-git
+Do not consult git at all.
+.TP
+.B \-\-include\-tests
+Include test files in the graph.
+.TP
+.B \-\-no\-journeys
+Skip entry point and navigation extraction.
+.TP
+.B \-\-no\-types
+Skip type extraction and class diagrams.
+.TP
+.B \-\-no\-code
+Skip the inside-the-files pass; graph analysis only.
+.TP
+.B \-\-full
+No review-budget caps: every node, edge and symbol.
+.SH FILES
+.TP
+.I .automap.baseline.json
+Recorded baseline that
+.B check
+compares against.
+.SH EXIT STATUS
+.TP
+.B 0
+The document was written, or
+.B check
+found no drift.
+.TP
+.B non-zero
+.B check
+found drift, or the tree could not be read.
+.SH EXAMPLES
+.PP
+Write the architecture document:
+.PP
+.RS
+.B automap map . \-o ARCHITECTURE.md
+.RE
+.PP
+Fail CI when the architecture drifts:
+.PP
+.RS
+.B automap check .
+.RE
+.SH SEE ALSO
+.BR arch-map (1),
+.BR git (1).
+Project documentation:
+.UR https://github.com/fabiocicerchia/automap
+.UE
