@@ -1,0 +1,46 @@
+# gandalf reviewing this repo's pull requests.
+#
+# Runs gandalf's scanners in one prebuilt container and posts every finding as
+# an inline review comment on the file:line it flags, plus (by default) ingests
+# them into GitHub Code Scanning. Nothing is installed on the runner and no
+# secret beyond the built-in GITHUB_TOKEN is needed.
+#
+# Source: fabiocicerchia/gandalf -> examples/github-actions/gandalf-pr-review.yml
+
+name: gandalf-pr-review
+
+on:
+  pull_request:
+
+permissions:
+  actions: read # private repo: upload-sarif reads this run's metadata
+  contents: read
+
+concurrency:
+  group: gandalf-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # read the code, post the review, and upload code-scanning results.
+    permissions:
+      contents: read
+      packages: read # pull the ghcr scanner image
+      pull-requests: write
+      security-events: write
+    name: gandalf inline review
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0 # need base + head + their merge-base for the PR diff
+
+      - uses: fabiocicerchia/gandalf@08ab6976c4159bd56adcb7714f273d25c0e20c08  # v0.12.1
+        with:
+          # Code scanning needs GitHub Advanced Security on a private repo.
+          # Without it the ingest fails and takes the whole review down with
+          # it, after the inline comments — the part that needs none of this —
+          # have already been posted. The repo variable still overrides.
+          code-scanning: >-
+            ${{ vars.GANDALF_INGEST_CODE_SCANNING
+                || (github.event.repository.private && 'false' || 'true') }}
