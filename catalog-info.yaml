@@ -1,0 +1,23 @@
+# Backstage catalog entry, read by paved's scorecard plugin.
+#
+# Every check paved scores is derived from this file alone — no cluster
+# access, no CI credentials. What is absent here is absent from the score.
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: automap
+  description: >-
+      Derives architecture documentation from a codebase — every statement computed from the source tree
+      or git and carrying a file:line or commit hash. No model, no network. Single-file, stdlib-only
+      Python, 12 languages.
+  annotations:
+    github.com/project-slug: fabiocicerchia/automap
+    backstage.io/source-location: url:https://github.com/fabiocicerchia/automap/
+  links:
+    - url: https://github.com/fabiocicerchia/automap
+      title: Source
+spec:
+  type: library
+  lifecycle: production
+  owner: group:default/kodebeat
+  system: oss-tools
