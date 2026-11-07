@@ -26,4 +26,5 @@ Feature: Resolving imports across languages
     When the developer maps the repository
     Then none of these imports is counted as an unresolved local import
     And sys and fmt are treated as the standard library
-    And requests and github.com/gin-gonic/gin are listed as external dependencies
+    And requests is listed as a third-party package
+    And the gin import is listed under the third-party package "github"

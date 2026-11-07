@@ -32,4 +32,4 @@ Feature: Scanning the repository's source
     And the file contains the text "is not an import" in a string, followed by a real import of ./types on line 7
     When the developer maps the repository
     Then no dependency on lib/should-not-be-seen is shown
-    And the dependency on web/types is shown at line 7
+    And the dependency on module web.types is shown at line 7

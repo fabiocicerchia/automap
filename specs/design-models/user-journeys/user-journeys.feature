@@ -3,7 +3,7 @@ Feature: Tracing ways into the application
   Shows teams every route and page users can reach, what each one touches, and links that point nowhere.
 
   Background:
-    Given Given a web app with HTTP routes GET /products and POST /checkout, and pages under pages/ for products, cart, checkout and help
+    Given a web app with HTTP routes GET /products and POST /checkout, and pages under pages/ for products, cart, checkout and help
 
   @id:design-models.user-journeys.001 @rule:design.journeys.entry-points-listed @verified @source:automap.py#extract_entries @test:tests/test_automap.py#test_http_routes_found @test:tests/test_automap.py#test_file_routing_found
   Scenario: Routes and file-based pages are listed as ways in

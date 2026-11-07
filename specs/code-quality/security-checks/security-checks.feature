@@ -7,7 +7,7 @@ Feature: Flagging risky code
     Given a source file contains <construct>
     When the developer maps the repository
     Then the "Inside the files" section reports <rule> under Security with severity <severity>
-    And the evidence lists the file and line of each occurrence
+    And the evidence lists the file and line of the occurrences, up to six
 
     Examples:
       | construct                             | rule            | severity        |

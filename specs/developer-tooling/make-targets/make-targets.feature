@@ -27,27 +27,26 @@ Feature: Running repository chores through make
 
   @id:developer-tooling.make-targets.003 @rule:tooling.make.run-maps-the-checkout-by-default @inferred @source:Makefile#run
   Scenario Outline: The run target maps the current checkout unless told otherwise
-    When the operator runs make run with ARGS "<args>"
-    Then automap runs as "automap <args>"
+    When the operator runs make run <setting>
+    Then automap runs as "automap <command>"
     And <outcome>
 
     Examples:
-      | args      | outcome                                                            |
-      | (not set) | ARCHITECTURE.md and the baseline file are written for the checkout |
-      | rules     | the rule catalog is printed                                        |
-      | langs     | the supported languages are printed                                |
+      | setting            | command | outcome                                                            |
+      | without ARGS       | map .   | ARCHITECTURE.md and the baseline file are written for the checkout |
+      | with ARGS="rules"  | rules   | the rule catalog is printed                                        |
+      | with ARGS="langs"  | langs   | the supported languages are printed                                |
 
   @id:developer-tooling.make-targets.004 @rule:tooling.make.analyze-fails-on-new-architecture @inferred @source:Makefile#analyze @questionable
   Scenario Outline: The analyze target fails when the repository's architecture gains something its baseline lacks
     Given the committed baseline was recorded earlier
     And since then the architecture has <change>
     When the operator runs make analyze
-    Then each difference is listed, prefixed "+" for new and "-" for removed
-    And a summary such as "1 new, 0 removed" is printed
+    Then the output <report>
     And make analyze <result>
 
     Examples:
-      | change                            | result                                              |
-      | gained a new component dependency | fails (exit status 1)                               |
-      | only lost a component dependency  | succeeds (exit status 0)                            |
-      | not changed                       | succeeds and prints "architecture matches baseline" |
+      | change                            | report                                                                   | result                                         |
+      | gained a new component dependency | lists the dependency prefixed "+" and the summary "1 new, 0 removed"     | fails, reporting automap check's exit status 1 |
+      | only lost a component dependency  | lists the dependency prefixed "-" and the summary "0 new, 1 removed"     | succeeds                                       |
+      | not changed                       | reads "architecture matches baseline"                                    | succeeds                                       |

@@ -7,4 +7,4 @@ Feature: Detecting dependency cycles
     Given component api imports internal, internal imports store, and store imports api
     When the developer maps the repository
     Then the cycle "api <-> internal <-> store" is recorded in the baseline
-    And the report raises a Serious finding "1 dependency cycle(s); the largest binds 3 of <n> components"
+    And the report raises a Serious finding starting "1 dependency cycle(s); the largest binds 3 of", followed by the repository's component count

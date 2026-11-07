@@ -3,7 +3,7 @@ Feature: Checking the architecture against its baseline
   Lets a team fail a build when new coupling, cycles, layer violations or third-party dependencies appear that nobody re-baselined, so architectural drift is caught at review time.
 
   Background:
-    Given Given a repository that automap can scan
+    Given a repository that automap can scan
 
   @id:drift-control.drift-check.001 @rule:drift.check.requires-baseline @inferred @source:automap.py#main
   Scenario: Checking without a committed baseline is refused
@@ -24,7 +24,7 @@ Feature: Checking the architecture against its baseline
     Given the committed baseline does not contain the <kind> "<item>"
     When the developer runs `automap check` after the code introduced it
     Then the output lists "+ <kind>: <item>"
-    And the summary reports "1 new, 0 removed. If intended, run `automap map` and commit the baseline."
+    And the summary counts it among the new items and says "If intended, run `automap map` and commit the baseline."
     And the command exits with status 1
 
     Examples:

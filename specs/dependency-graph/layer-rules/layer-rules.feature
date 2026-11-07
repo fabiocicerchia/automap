@@ -3,7 +3,7 @@ Feature: Enforcing declared architectural layers
   Lets architects declare their intended layering and see every dependency that points the wrong way.
 
   Background:
-    Given Given .automap.json declares the layers in order "interface" (web, api), "core" (domain), "infrastructure" (store, internal)
+    Given .automap.json declares the layers in order "interface" (web, api), "core" (domain), "infrastructure" (store, internal)
 
   @id:dependency-graph.layer-rules.001 @rule:graph.layers.upward-dependency-is-violation @verified @source:automap.py#layer_violations @test:tests/test_automap.py#test_layer_violations_detected
   Scenario Outline: Only a dependency from a lower layer to a higher one is a layer violation

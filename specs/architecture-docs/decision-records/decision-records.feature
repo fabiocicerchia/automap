@@ -4,7 +4,8 @@ Feature: Drafting architecture decision records
 
   @id:architecture-docs.decision-records.001 @rule:docs.adr.draft-per-decision-point @inferred @source:automap.py#adrs
   Scenario: A numbered ADR draft is written for each cycle, layer violation, language seam and coupling hub
-    Given the repository has a cycle between api, internal and store, and internal depends upward on api
+    Given the repository has a cycle between api, internal and store
+    And .automap.json declares api in a higher layer than internal, and internal imports api
     When the developer runs `automap adr`
     Then docs/adr/DRAFT-001-cycle-api-internal-store.md is written, titled "Cycle between api and internal and store"
     And docs/adr/DRAFT-002-layer-internal-api.md is written, titled "internal depends upward on api"
