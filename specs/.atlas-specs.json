@@ -1,0 +1,744 @@
+{
+ "excluded": {
+  "automap/automap": [
+   {
+    "candidate": "Python relative import inside package __init__ resolves against the package",
+    "covered_by": "",
+    "reason": "INTERNAL_MECHANISM",
+    "source": "automap.py#scan_file"
+   },
+   {
+    "candidate": "export/from statements do not span statements",
+    "covered_by": "",
+    "reason": "INTERNAL_MECHANISM",
+    "source": "automap.py#scan_file"
+   },
+   {
+    "candidate": "Edge de-duplication of one statement yielding several specs",
+    "covered_by": "",
+    "reason": "INTERNAL_MECHANISM",
+    "source": "automap.py#build"
+   },
+   {
+    "candidate": "Propagation cost, reachability, keystones, longest chain, main-sequence metrics",
+    "covered_by": "",
+    "reason": "UNVERIFIABLE",
+    "source": "automap.py#reachability"
+   },
+   {
+    "candidate": "DSM marks only back edges",
+    "covered_by": "",
+    "reason": "INTERNAL_MECHANISM",
+    "source": "automap.py#dsm"
+   },
+   {
+    "candidate": "Mermaid diagram node/edge budgets",
+    "covered_by": "",
+    "reason": "UNVERIFIABLE",
+    "source": "automap.py#mermaid"
+   },
+   {
+    "candidate": "Churn, co-change, authorship and --no-git",
+    "covered_by": "",
+    "reason": "UNVERIFIABLE",
+    "source": "automap.py#churn"
+   },
+   {
+    "candidate": "--blame commit lookup per edge",
+    "covered_by": "docs.adr.draft-per-decision-point",
+    "reason": "DUPLICATE_OF",
+    "source": "automap.py#edge_origin"
+   },
+   {
+    "candidate": "Performance/scalability loop-scoped rules (N+1, regex in loop, sleep polling)",
+    "covered_by": "",
+    "reason": "UNVERIFIABLE",
+    "source": "automap.py#loop_spans"
+   },
+   {
+    "candidate": "N+1 rule ignores plain dict.get; module-state rule ignores locals",
+    "covered_by": "",
+    "reason": "TRIVIAL",
+    "source": "automap.py#CODE_RULES"
+   },
+   {
+    "candidate": "Python complexity, length, nesting and parameter metrics",
+    "covered_by": "review.findings.threshold-override",
+    "reason": "DUPLICATE_OF",
+    "source": "automap.py#code_findings"
+   },
+   {
+    "candidate": "Clone detection",
+    "covered_by": "",
+    "reason": "UNVERIFIABLE",
+    "source": "automap.py#scan_code"
+   },
+   {
+    "candidate": "Type extraction for Python and TypeScript classes",
+    "covered_by": "design.types.relations-only-between-found-types",
+    "reason": "DUPLICATE_OF",
+    "source": "automap.py#extract_types"
+   },
+   {
+    "candidate": "Navigation edges between screens",
+    "covered_by": "design.journeys.undeclared-links-flagged",
+    "reason": "DUPLICATE_OF",
+    "source": "automap.py#journey_graph"
+   },
+   {
+    "candidate": "--no-code, --no-types, --no-journeys skip report sections",
+    "covered_by": "",
+    "reason": "TRIVIAL",
+    "source": "automap.py#main"
+   },
+   {
+    "candidate": "Markdown table normalisation",
+    "covered_by": "",
+    "reason": "INTERNAL_MECHANISM",
+    "source": "automap.py#normalise_md"
+   },
+   {
+    "candidate": "Remaining graph rules (orphans, god files, vague names, duplicate libraries, untested components\u2026)",
+    "covered_by": "",
+    "reason": "UNVERIFIABLE",
+    "source": "automap.py#evaluate"
+   },
+   {
+    "candidate": "Self-mapping regression test harness and fixtures",
+    "covered_by": "",
+    "reason": "TECH_DEVTOOLING",
+    "source": "tests/test_automap.py"
+   }
+  ],
+  "automap/makefile": [
+   {
+    "candidate": "make test runs the test suite",
+    "covered_by": "",
+    "reason": "TECH_DEVTOOLING",
+    "source": "Makefile#test"
+   },
+   {
+    "candidate": "make lint runs every pre-commit hook over every file",
+    "covered_by": "",
+    "reason": "TECH_BUILD",
+    "source": "Makefile#lint"
+   },
+   {
+    "candidate": "make install installs the package and its man page with pip (README wrongly lists install as a no-op)",
+    "covered_by": "",
+    "reason": "TECH_BUILD",
+    "source": "Makefile#install"
+   },
+   {
+    "candidate": "make analyze with no baseline file exits 2 telling the operator to run automap map",
+    "covered_by": "",
+    "reason": "UNVERIFIABLE",
+    "source": "Makefile#analyze"
+   }
+  ]
+ },
+ "lifted": {
+  "automap/automap": [],
+  "automap/makefile": []
+ },
+ "retired": [],
+ "scenarios": {
+  "architecture-docs.architecture-report.001": {
+   "file": "specs/architecture-docs/architecture-report/architecture-report.feature",
+   "fingerprint": "68a93c619452",
+   "human": false,
+   "rule": "docs.report.map-writes-report-and-baseline",
+   "source": "automap.py#main",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "architecture-docs.decision-records.001": {
+   "file": "specs/architecture-docs/decision-records/decision-records.feature",
+   "fingerprint": "85c77b3fffcb",
+   "human": false,
+   "rule": "docs.adr.draft-per-decision-point",
+   "source": "automap.py#adrs",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "architecture-docs.decision-records.002": {
+   "file": "specs/architecture-docs/decision-records/decision-records.feature",
+   "fingerprint": "68a93c619452",
+   "human": false,
+   "rule": "docs.adr.none-found",
+   "source": "automap.py#main",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "architecture-review.architecture-findings.001": {
+   "file": "specs/architecture-review/architecture-findings/tuning-findings.feature",
+   "fingerprint": "eb20df8039eb",
+   "human": false,
+   "rule": "review.findings.suppressed-rule-never-reported",
+   "source": "automap.py#evaluate",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "architecture-review.architecture-findings.002": {
+   "file": "specs/architecture-review/architecture-findings/tuning-findings.feature",
+   "fingerprint": "cb1b40c41e21",
+   "human": false,
+   "rule": "review.findings.threshold-override",
+   "source": "automap.py#code_findings",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_python_metrics_fire",
+   "tests": [
+    "tests/test_automap.py#test_python_metrics_fire"
+   ]
+  },
+  "architecture-review.rule-catalog.001": {
+   "file": "specs/architecture-review/rule-catalog/rule-catalog.feature",
+   "fingerprint": "68a93c619452",
+   "human": false,
+   "rule": "review.catalog.rules-command-lists-all",
+   "source": "automap.py#main",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "architecture-review.severity-ranking.001": {
+   "file": "specs/architecture-review/severity-ranking/finding-ranking.feature",
+   "fingerprint": "eb20df8039eb",
+   "human": false,
+   "rule": "review.ranking.severity-first",
+   "source": "automap.py#evaluate",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "architecture-review.severity-ranking.002": {
+   "file": "specs/architecture-review/severity-ranking/finding-ranking.feature",
+   "fingerprint": "192c8452b374",
+   "human": false,
+   "rule": "review.ranking.cap-unless-full",
+   "source": "automap.py#render_findings",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "architecture-review.severity-ranking.003": {
+   "file": "specs/architecture-review/severity-ranking/finding-ranking.feature",
+   "fingerprint": "192c8452b374",
+   "human": false,
+   "rule": "review.ranking.empty-is-a-result",
+   "source": "automap.py#render_findings",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "code-discovery.import-resolution.001": {
+   "file": "specs/code-discovery/import-resolution/import-resolution.feature",
+   "fingerprint": "2fcee884f71d",
+   "human": false,
+   "rule": "discovery.resolution.project-conventions",
+   "source": "automap.py#resolve",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_tsconfig_path_alias",
+   "tests": [
+    "tests/test_automap.py#test_tsconfig_path_alias",
+    "tests/test_automap.py#test_go_module_prefix",
+    "tests/test_automap.py#test_java_maven_source_root",
+    "tests/test_automap.py#test_csharp_namespace_not_path",
+    "tests/test_automap.py#test_rust_crate_prefix",
+    "tests/test_automap.py#test_php_psr4",
+    "tests/test_automap.py#test_ruby_require_relative",
+    "tests/test_automap.py#test_cpp_include"
+   ]
+  },
+  "code-discovery.import-resolution.002": {
+   "file": "specs/code-discovery/import-resolution/import-resolution.feature",
+   "fingerprint": "427f26a025c4",
+   "human": false,
+   "rule": "discovery.resolution.packages-not-counted-as-gaps",
+   "source": "automap.py#third_party",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_stdlib_is_not_third_party",
+   "tests": [
+    "tests/test_automap.py#test_stdlib_is_not_third_party",
+    "tests/test_automap.py#test_go_stdlib_recognised",
+    "tests/test_automap.py#test_no_unaccounted_imports"
+   ]
+  },
+  "code-discovery.language-support.001": {
+   "file": "specs/code-discovery/language-support/supported-languages.feature",
+   "fingerprint": "68a93c619452",
+   "human": false,
+   "rule": "discovery.languages.listed-with-fidelity",
+   "source": "automap.py#main",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "code-discovery.project-settings.001": {
+   "file": "specs/code-discovery/project-settings/project-configuration.feature",
+   "fingerprint": "c2c2523bc300",
+   "human": false,
+   "rule": "discovery.settings.unknown-keys-ignored",
+   "source": "automap.py#load_config",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "code-discovery.source-scanning.001": {
+   "file": "specs/code-discovery/source-scanning/source-scanning.feature",
+   "fingerprint": "a7f2d2191def",
+   "human": false,
+   "rule": "discovery.scan.tests-kept-out-of-graph",
+   "source": "automap.py#build",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "code-discovery.source-scanning.002": {
+   "file": "specs/code-discovery/source-scanning/source-scanning.feature",
+   "fingerprint": "6f7288f976ab",
+   "human": false,
+   "rule": "discovery.scan.excluded-and-hidden-dirs-skipped",
+   "source": "automap.py#walk_sources",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "code-discovery.source-scanning.003": {
+   "file": "specs/code-discovery/source-scanning/source-scanning.feature",
+   "fingerprint": "fd661733fff8",
+   "human": false,
+   "rule": "discovery.scan.commented-imports-ignored",
+   "source": "automap.py#mask_comments",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_commented_out_import_is_ignored",
+   "tests": [
+    "tests/test_automap.py#test_commented_out_import_is_ignored",
+    "tests/test_automap.py#test_import_keyword_inside_string_literal_is_ignored",
+    "tests/test_automap.py#test_go_struct_tag_is_not_an_import"
+   ]
+  },
+  "code-quality.security-checks.001": {
+   "file": "specs/code-quality/security-checks/security-checks.feature",
+   "fingerprint": "241425301c3f",
+   "human": false,
+   "rule": "quality.security.risky-constructs-flagged",
+   "source": "automap.py#scan_code",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_security_rules_fire",
+   "tests": [
+    "tests/test_automap.py#test_security_rules_fire"
+   ]
+  },
+  "dependency-graph.cycles.001": {
+   "file": "specs/dependency-graph/cycles/dependency-cycles.feature",
+   "fingerprint": "888889442bd6",
+   "human": false,
+   "rule": "graph.cycles.component-cycle-reported",
+   "source": "automap.py#tarjan",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_cycles_detected",
+   "tests": [
+    "tests/test_automap.py#test_cycles_detected",
+    "tests/test_automap.py#test_automap_maps_itself"
+   ]
+  },
+  "dependency-graph.layer-rules.001": {
+   "file": "specs/dependency-graph/layer-rules/layer-rules.feature",
+   "fingerprint": "9739da4f5cae",
+   "human": false,
+   "rule": "graph.layers.upward-dependency-is-violation",
+   "source": "automap.py#layer_violations",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_layer_violations_detected",
+   "tests": [
+    "tests/test_automap.py#test_layer_violations_detected"
+   ]
+  },
+  "dependency-graph.layer-rules.002": {
+   "file": "specs/dependency-graph/layer-rules/layer-rules.feature",
+   "fingerprint": "eb20df8039eb",
+   "human": false,
+   "rule": "graph.layers.undeclared-layers-noted",
+   "source": "automap.py#evaluate",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "design-models.class-diagrams.001": {
+   "file": "specs/design-models/class-diagrams/type-relations.feature",
+   "fingerprint": "8789e1dda11d",
+   "human": false,
+   "rule": "design.types.relations-only-between-found-types",
+   "source": "automap.py#type_relations",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_inheritance",
+   "tests": [
+    "tests/test_automap.py#test_inheritance",
+    "tests/test_automap.py#test_composition_from_annotations",
+    "tests/test_automap.py#test_untyped_field_yields_no_edge"
+   ]
+  },
+  "design-models.user-journeys.001": {
+   "file": "specs/design-models/user-journeys/user-journeys.feature",
+   "fingerprint": "92d210af2575",
+   "human": false,
+   "rule": "design.journeys.entry-points-listed",
+   "source": "automap.py#extract_entries",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_http_routes_found",
+   "tests": [
+    "tests/test_automap.py#test_http_routes_found",
+    "tests/test_automap.py#test_file_routing_found"
+   ]
+  },
+  "design-models.user-journeys.002": {
+   "file": "specs/design-models/user-journeys/user-journeys.feature",
+   "fingerprint": "5d48271600c4",
+   "human": false,
+   "rule": "design.journeys.reach-per-entry",
+   "source": "automap.py#render_journeys",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_blast_radius",
+   "tests": [
+    "tests/test_automap.py#test_blast_radius"
+   ]
+  },
+  "design-models.user-journeys.003": {
+   "file": "specs/design-models/user-journeys/user-journeys.feature",
+   "fingerprint": "5d48271600c4",
+   "human": false,
+   "rule": "design.journeys.undeclared-links-flagged",
+   "source": "automap.py#render_journeys",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "developer-tooling.make-targets.001": {
+   "file": "specs/developer-tooling/make-targets/make-targets.feature",
+   "fingerprint": "517de792f113",
+   "human": false,
+   "rule": "tooling.make.bare-make-lists-targets",
+   "source": "Makefile#help",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "developer-tooling.make-targets.002": {
+   "file": "specs/developer-tooling/make-targets/make-targets.feature",
+   "fingerprint": "88ba1aaab3c7",
+   "human": false,
+   "rule": "tooling.make.not-applicable-targets-explain-why",
+   "source": "Makefile#setup",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "developer-tooling.make-targets.003": {
+   "file": "specs/developer-tooling/make-targets/make-targets.feature",
+   "fingerprint": "5b1e61e3d0ff",
+   "human": false,
+   "rule": "tooling.make.run-maps-the-checkout-by-default",
+   "source": "Makefile#run",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "developer-tooling.make-targets.004": {
+   "file": "specs/developer-tooling/make-targets/make-targets.feature",
+   "fingerprint": "58190750c55d",
+   "human": false,
+   "rule": "tooling.make.analyze-fails-on-new-architecture",
+   "source": "Makefile#analyze",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "drift-control.baseline.001": {
+   "file": "specs/drift-control/baseline/architecture-baseline.feature",
+   "fingerprint": "45a04a908248",
+   "human": false,
+   "rule": "drift.baseline.deterministic-snapshot",
+   "source": "automap.py#baseline",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_two_runs_identical",
+   "tests": [
+    "tests/test_automap.py#test_two_runs_identical",
+    "tests/test_automap.py#test_baseline_is_sorted"
+   ]
+  },
+  "drift-control.drift-check.001": {
+   "file": "specs/drift-control/drift-check/drift-check.feature",
+   "fingerprint": "68a93c619452",
+   "human": false,
+   "rule": "drift.check.requires-baseline",
+   "source": "automap.py#main",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "drift-control.drift-check.002": {
+   "file": "specs/drift-control/drift-check/drift-check.feature",
+   "fingerprint": "68a93c619452",
+   "human": false,
+   "rule": "drift.check.matching-architecture-passes",
+   "source": "automap.py#main",
+   "status": "verified",
+   "test": "tests/test_automap.py#test_two_runs_identical",
+   "tests": [
+    "tests/test_automap.py#test_two_runs_identical"
+   ]
+  },
+  "drift-control.drift-check.003": {
+   "file": "specs/drift-control/drift-check/drift-check.feature",
+   "fingerprint": "058d1485e81d",
+   "human": false,
+   "rule": "drift.check.new-dependency-fails",
+   "source": "automap.py#diff_baseline",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  },
+  "drift-control.drift-check.004": {
+   "file": "specs/drift-control/drift-check/drift-check.feature",
+   "fingerprint": "68a93c619452",
+   "human": false,
+   "rule": "drift.check.removals-only-pass",
+   "source": "automap.py#main",
+   "status": "inferred",
+   "test": "",
+   "tests": []
+  }
+ },
+ "taxonomy": {
+  "domains": [
+   {
+    "areas": [
+     {
+      "description": "Recognising supported languages by file extension and listing them with the langs command.",
+      "slug": "language-support",
+      "title": "Language support"
+     },
+     {
+      "description": "Walking the repository, skipping tests and ignored paths, and masking comments and strings before analysis.",
+      "slug": "source-scanning",
+      "title": "Source scanning"
+     },
+     {
+      "description": "Reading project manifests, path aliases, source roots and the repository's automap configuration.",
+      "slug": "project-settings",
+      "title": "Project settings"
+     },
+     {
+      "description": "Turning import statements into internal module links while telling apart standard library and third-party packages.",
+      "slug": "import-resolution",
+      "title": "Import resolution"
+     }
+    ],
+    "description": "How automap finds, reads and understands the source files of a repository across languages.",
+    "slug": "code-discovery",
+    "title": "Code discovery"
+   },
+   {
+    "areas": [
+     {
+      "description": "Grouping modules into components at a chosen depth and building the component-level graph.",
+      "slug": "components",
+      "title": "Components"
+     },
+     {
+      "description": "Detecting dependency cycles between components and between modules.",
+      "slug": "cycles",
+      "title": "Cycles"
+     },
+     {
+      "description": "Fan-in, fan-out, instability, abstractness, reachability, longest chains and single points of failure.",
+      "slug": "coupling-metrics",
+      "title": "Coupling metrics"
+     },
+     {
+      "description": "Checking configured architectural layers and reporting dependencies that cross them the wrong way.",
+      "slug": "layer-rules",
+      "title": "Layer rules"
+     }
+    ],
+    "description": "Building and measuring the graph of how modules and components depend on each other.",
+    "slug": "dependency-graph",
+    "title": "Dependency graph"
+   },
+   {
+    "areas": [
+     {
+      "description": "Measuring how often files and components change over a recent period.",
+      "slug": "churn",
+      "title": "Churn"
+     },
+     {
+      "description": "Finding components that tend to change together in the same commits.",
+      "slug": "co-change",
+      "title": "Co-change"
+     },
+     {
+      "description": "Summarising who contributes to which parts of the code.",
+      "slug": "authorship",
+      "title": "Authorship"
+     },
+     {
+      "description": "Blaming each dependency to the commit that introduced it, on request.",
+      "slug": "edge-origins",
+      "title": "Edge origins"
+     }
+    ],
+    "description": "Using git history to show how the architecture changes over time and who touches it.",
+    "slug": "history-insights",
+    "title": "History insights"
+   },
+   {
+    "areas": [
+     {
+      "description": "Evaluating structure, boundaries, size, dependencies, testing and evidence-quality rules against thresholds.",
+      "slug": "architecture-findings",
+      "title": "Architecture findings"
+     },
+     {
+      "description": "Flagging vague component names and components whose responsibilities overlap.",
+      "slug": "naming-and-overlap",
+      "title": "Naming and overlap"
+     },
+     {
+      "description": "Listing every rule, its category and severity with the rules command.",
+      "slug": "rule-catalog",
+      "title": "Rule catalog"
+     },
+     {
+      "description": "Ordering and capping findings by severity for a reviewable report.",
+      "slug": "severity-ranking",
+      "title": "Severity ranking"
+     }
+    ],
+    "description": "Rule-based findings about the health of the architecture, with fixed explanations and evidence.",
+    "slug": "architecture-review",
+    "title": "Architecture review"
+   },
+   {
+    "areas": [
+     {
+      "description": "Pattern rules that spot risky code such as unsafe calls or embedded secrets.",
+      "slug": "security-checks",
+      "title": "Security checks"
+     },
+     {
+      "description": "Rules for slow patterns, nested loops and poor algorithm or data structure choices.",
+      "slug": "performance-checks",
+      "title": "Performance and scalability"
+     },
+     {
+      "description": "Function size, complexity, duplicated code and readability rules.",
+      "slug": "maintainability-checks",
+      "title": "Maintainability and readability"
+     }
+    ],
+    "description": "An inside-the-files pass that looks for code-level problems beyond the dependency graph.",
+    "slug": "code-quality",
+    "title": "Code quality"
+   },
+   {
+    "areas": [
+     {
+      "description": "Finding classes, interfaces and other types with their inheritance and composition.",
+      "slug": "type-extraction",
+      "title": "Type extraction"
+     },
+     {
+      "description": "Rendering type relationships as diagrams with the types command.",
+      "slug": "class-diagrams",
+      "title": "Class diagrams"
+     },
+     {
+      "description": "Discovering routes, handlers and file-based pages that users reach.",
+      "slug": "entry-points",
+      "title": "Entry points"
+     },
+     {
+      "description": "Tracing navigation and reach from entry points through the code with the journeys command.",
+      "slug": "user-journeys",
+      "title": "User journeys"
+     }
+    ],
+    "description": "Extracting the types and user-facing entry points of the code to show its design.",
+    "slug": "design-models",
+    "title": "Design models"
+   },
+   {
+    "areas": [
+     {
+      "description": "Producing ARCHITECTURE.md with summaries, tables and findings via the map command.",
+      "slug": "architecture-report",
+      "title": "Architecture report"
+     },
+     {
+      "description": "Mermaid dependency diagrams, dependency matrices and import trees with size budgets.",
+      "slug": "diagrams",
+      "title": "Diagrams"
+     },
+     {
+      "description": "Generating architecture decision record drafts with the adr command.",
+      "slug": "decision-records",
+      "title": "Decision records"
+     },
+     {
+      "description": "Lifting review-size caps so every node, edge and symbol is shown.",
+      "slug": "full-detail-mode",
+      "title": "Full detail mode"
+     }
+    ],
+    "description": "The documents automap writes so people can read and review the architecture.",
+    "slug": "architecture-docs",
+    "title": "Architecture documentation"
+   },
+   {
+    "areas": [
+     {
+      "description": "Saving a snapshot of the derived architecture to a committed baseline file.",
+      "slug": "baseline",
+      "title": "Baseline"
+     },
+     {
+      "description": "Comparing the current architecture to the baseline and failing when they differ, via the check command.",
+      "slug": "drift-check",
+      "title": "Drift check"
+     }
+    ],
+    "description": "Keeping the architecture from changing unnoticed between versions.",
+    "slug": "drift-control",
+    "title": "Drift control"
+   },
+   {
+    "areas": [
+     {
+      "description": "The automap command, its subcommands and option flags.",
+      "slug": "command-line",
+      "title": "Command line"
+     },
+     {
+      "description": "Help, run, test, analyze, install and lint targets, plus declared no-op targets that explain why.",
+      "slug": "make-targets",
+      "title": "Make targets"
+     },
+     {
+      "description": "Installing automap and its man page with pip.",
+      "slug": "packaging",
+      "title": "Packaging"
+     }
+    ],
+    "description": "Commands for running, testing, installing and linting automap itself.",
+    "slug": "developer-tooling",
+    "title": "Developer tooling"
+   }
+  ]
+ }
+}
