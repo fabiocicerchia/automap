@@ -42,7 +42,7 @@ jobs:
       # no pre-commit hook for typos, so `_typos.toml` is the only place to
       # record a word it should not have flagged.
       - name: typos
-        uses: crate-ci/typos@7f9d0819ca1c008ade73f4b41fa9d258d48f605b  # master
+        uses: crate-ci/typos@4c8b7f51ca60df14e3c5ca82770dfbbe6c3dae85  # master
 
       - name: pre-commit
         if: hashFiles('.pre-commit-config.yaml') != ''
