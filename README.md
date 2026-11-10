@@ -1,5 +1,12 @@
 # automap
 
+> [!WARNING]
+> **This project is retired** and no longer maintained. Its architecture
+> documentation, drift gate and ADR scaffolds now live on in code-atlas, part of
+> [Kodebeat](https://kodebeat.com). If you only need the dependency rules,
+> [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) is a
+> separate project, actively developed, and worth a look.
+
 Derives architecture documentation from a codebase. No model, no network, no
 generation.
 
